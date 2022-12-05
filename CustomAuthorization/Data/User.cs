@@ -37,7 +37,7 @@ public class User
     [Required] public bool Gender { get; set; }
 
     public int GroupId { get; set; }
-    public Group Groupp { get; set; }
+    public Group Group { get; set; }
     public bool Status { get; set; }
 }
 

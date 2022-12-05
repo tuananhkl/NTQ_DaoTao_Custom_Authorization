@@ -34,7 +34,7 @@
                 @Html.DisplayNameFor(model => model.Gender)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Groupp)
+                @Html.DisplayNameFor(model => model.Group)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -64,13 +64,19 @@
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Gender)
+                @{
+                    var gender = item.Gender ? "Nam" : "Nu";
+                }
+                @Html.Raw(gender)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Groupp.Id)
+                @Html.DisplayFor(modelItem => item.Group.GroupName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                @{
+                    var status = item.Status ? "Active" : "Inactive";
+                }
+                @Html.Raw(status)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

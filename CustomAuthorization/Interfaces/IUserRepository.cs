@@ -15,4 +15,5 @@ public interface IUserRepository
 
     //Task Delete(int id);
     Task Delete(User user);
+    Task SafeDelete(User user);
 }

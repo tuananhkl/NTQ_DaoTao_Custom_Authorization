@@ -15,7 +15,7 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<User>> GetAll()
     {
-        var users = await _context.Users.Include("Group").ToListAsync();
+        var users = await _context.Users.Include(u => u.Group).ToListAsync();
         return users;
     }
 
@@ -30,7 +30,7 @@ public class UserRepository : IUserRepository
     public async Task<User> GetByUserName(string userName)
     {
         var user = await _context.Users.Where(u => u.UserName.ToLower().Equals(userName))
-                                                        .Include("Group")
+                                                        .Include(u => u.Group)
                                                         .FirstOrDefaultAsync();
         return user;
     }
@@ -51,5 +51,12 @@ public class UserRepository : IUserRepository
     {
         _context.Users.Remove(user);
         await _context.SaveChangesAsync();
+    }
+
+    public Task SafeDelete(User user)
+    {
+        user.Status = false;
+        
+        return Task.CompletedTask;
     }
 }
