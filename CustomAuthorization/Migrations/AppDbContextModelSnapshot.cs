@@ -39,6 +39,14 @@ namespace CustomAuthorization.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Groups");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GroupName = "Admin",
+                            Status = false
+                        });
                 });
 
             modelBuilder.Entity("CustomAuthorization.Data.Role", b =>
@@ -58,6 +66,14 @@ namespace CustomAuthorization.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Action = "Index",
+                            Controller = "User"
+                        });
                 });
 
             modelBuilder.Entity("CustomAuthorization.Data.User", b =>
@@ -103,7 +119,24 @@ namespace CustomAuthorization.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GroupId");
+
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Hanoi",
+                            Age = 23,
+                            DateOfBirth = new DateTime(1999, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "tuananh@gmail.com",
+                            Gender = true,
+                            GroupId = 1,
+                            Password = "Tuananh123.",
+                            Status = true,
+                            UserName = "tuananh"
+                        });
                 });
 
             modelBuilder.Entity("CustomAuthorization.Data.UserRole", b =>
@@ -126,6 +159,26 @@ namespace CustomAuthorization.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            RoleId = 1,
+                            Status = true,
+                            UserId = 1
+                        });
+                });
+
+            modelBuilder.Entity("CustomAuthorization.Data.User", b =>
+                {
+                    b.HasOne("CustomAuthorization.Data.Group", "Groupp")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Groupp");
                 });
 #pragma warning restore 612, 618
         }
