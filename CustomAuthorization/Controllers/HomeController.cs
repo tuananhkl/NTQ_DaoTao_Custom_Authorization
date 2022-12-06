@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using CustomAuthorization.Common.Constants;
+using CustomAuthorization.CustomAuthorization;
 using Microsoft.AspNetCore.Mvc;
 using CustomAuthorization.Models;
 
@@ -18,6 +20,8 @@ public class HomeController : Controller
         return View();
     }
 
+    // [CustomAuthorize(CustomAuthorizationConfig.HOME_PRIVACY)]
+    [CustomAuthorize("ABc.xyz")]
     public IActionResult Privacy()
     {
         return View();

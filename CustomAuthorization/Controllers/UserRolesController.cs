@@ -20,9 +20,11 @@ namespace CustomAuthorization.Controllers
 
         // GET: UserRoles
         public async Task<IActionResult> Index()
-        {   
-            
-            return View(await _context.UserRoles.ToListAsync());
+        {
+            var userRoles = _context.UserRoles
+                .Include(ur => ur.User)
+                .Include(ur => ur.Role);
+            return View(await userRoles.ToListAsync());
         }
 
         // GET: UserRoles/Details/5
@@ -33,14 +35,19 @@ namespace CustomAuthorization.Controllers
                 return NotFound();
             }
 
-            var userRole = await _context.UserRoles
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var userRole = _context.UserRoles
+                .Include(ur => ur.User)
+                .Include(ur => ur.Role)
+                .FirstOrDefaultAsync(ur => ur.Id == id);
+            
+            // var userRole = await _context.UserRoles
+            //     .FirstOrDefaultAsync(m => m.Id == id);
             if (userRole == null)
             {
                 return NotFound();
             }
 
-            return View(userRole);
+            return View(await userRole);
         }
 
         // GET: UserRoles/Create
@@ -73,12 +80,17 @@ namespace CustomAuthorization.Controllers
                 return NotFound();
             }
 
-            var userRole = await _context.UserRoles.FindAsync(id);
+            var userRole = _context.UserRoles
+                .Include(ur => ur.User)
+                .Include(ur => ur.Role)
+                .FirstOrDefaultAsync(u => u.Id == id);
+            
+            // var userRole = await _context.UserRoles.FindAsync(id);
             if (userRole == null)
             {
                 return NotFound();
             }
-            return View(userRole);
+            return View(await userRole);
         }
 
         // POST: UserRoles/Edit/5
@@ -124,14 +136,17 @@ namespace CustomAuthorization.Controllers
                 return NotFound();
             }
 
-            var userRole = await _context.UserRoles
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var userRole = _context.UserRoles
+                .Include(ur => ur.User)
+                .Include(ur => ur.Role)
+                .FirstOrDefaultAsync(u => u.Id == id);
+            
             if (userRole == null)
             {
                 return NotFound();
             }
 
-            return View(userRole);
+            return View(await userRole);
         }
 
         // POST: UserRoles/Delete/5

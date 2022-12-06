@@ -13,10 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserId)
+                @Html.DisplayNameFor(model => model.User)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoleId)
+                @Html.DisplayNameFor(model => model.Role)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -28,10 +28,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
+                @Html.DisplayFor(modelItem => item.User.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RoleId)
+                @{
+                    var role = item.Role.Controller + "." + item.Role.Action;
+                    @* @Html.DisplayFor(modelItem => item.Role.Controller) *@
+                    @* @Html.DisplayFor(modelItem => item.Role.Action) *@
+                }
+                @role
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
