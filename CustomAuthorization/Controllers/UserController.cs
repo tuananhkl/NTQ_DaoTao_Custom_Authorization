@@ -63,7 +63,7 @@ namespace CustomAuthorization.Controllers
         // GET: User/Create
         public IActionResult Create()
         {
-            ViewData["GroupId"] = new SelectList(_groupRepository.GetAll(), "Id", "Id");
+            ViewData["GroupId"] = new SelectList(_groupRepository.GetAll(), "Id", "GroupName");
             return View();
         }
 
@@ -96,7 +96,7 @@ namespace CustomAuthorization.Controllers
                 return NotFound($"User with id {id} is not found");
             }
             
-            //PopulateGroupsDropDownList(user.GroupId);
+            PopulateGroupsDropDownList(user.GroupId);
             
             return View(user);
         }
@@ -160,15 +160,15 @@ namespace CustomAuthorization.Controllers
                 //safe delete
                 //await _userRepository.SafeDelete(user);
             }
-            
+
             return RedirectToAction(nameof(Index));
         }
 
-        // private void PopulateGroupsDropDownList(object selectedGroup = null)
-        // {
-        //     var groupsQuery = _groupRepository.GetGroupOrderByName();
-        //
-        //     ViewBag.GroupId = new SelectList(groupsQuery.AsNoTracking(), "GroupId", "Name", selectedGroup);
-        // }
+        private void PopulateGroupsDropDownList(object selectedGroup = null)
+        {
+            var groupsQuery = _groupRepository.GetGroupOrderByName();
+        
+            ViewBag.GroupId = new SelectList(groupsQuery.AsNoTracking(), "Id", "GroupName", selectedGroup);
+        }
     }
 }
