@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CustomAuthorization.Common.Constants;
+using CustomAuthorization.CustomAuthorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +11,7 @@ using CustomAuthorization.Data;
 
 namespace CustomAuthorization.Controllers
 {
+    [CustomAuthorize(CustomAuthorizationConfig.GROUP_ALL)]
     public class GroupController : Controller
     {
         private readonly AppDbContext _context;

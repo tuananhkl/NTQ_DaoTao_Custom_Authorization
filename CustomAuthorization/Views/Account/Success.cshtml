@@ -1,4 +1,5 @@
 @using Microsoft.AspNetCore.Http;
+@using CustomAuthorization.Common.Constants
 
 <html>
 <head>
@@ -8,7 +9,7 @@
 <body>
 
 <h3>Success Page</h3>
-Welcome @Context.Session.GetString("username")
+Welcome @Context.Session.GetString(UserConfigurations.USER_NAME)
 <br>
 
 <a asp-controller="account" asp-action="Details">Details</a>

@@ -1,13 +1,10 @@
-namespace CustomAuthorization.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using CustomAuthorization.Data;
 
-public class ManageUserRolesViewModel
-{
-    public string UserId { get; set; }
-    public IList<UserRolesViewModel> UserRoles { get; set; }
-}
+namespace CustomAuthorization.Models;
 
 public class UserRolesViewModel
 {
-    public string RoleName { get; set; }
-    public bool Selected { get; set; }
+    
 }

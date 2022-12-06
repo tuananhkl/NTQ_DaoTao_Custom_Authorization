@@ -2,13 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CustomAuthorization.Common.Constants;
+using CustomAuthorization.CustomAuthorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CustomAuthorization.Data;
+using CustomAuthorization.Models;
 
 namespace CustomAuthorization.Controllers
 {
+    //[CustomAuthorize(CustomAuthorizationConfig.USER_ROLE_ALL)]
     public class UserRolesController : Controller
     {
         private readonly AppDbContext _context;
@@ -51,9 +55,44 @@ namespace CustomAuthorization.Controllers
         }
 
         // GET: UserRoles/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var users = await _context.Users.ToListAsync();
+            var roles = await _context.Roles.ToListAsync();
+            
+            // PopulateControllersDropDownList();
+            // PopulateActionsDropDownList();
+            PopulateUserDropDownList();
+            
             return View();
+        }
+        
+        // private void PopulateControllersDropDownList(object selectedGroup = null)
+        // {
+        //     var roleControllersQuery = _context.Roles;
+        //
+        //     ViewBag.ControllersNames = new SelectList(roleControllersQuery.ToList(), "Id", "Controller", selectedGroup);
+        // }
+        //
+        // private void PopulateActionsDropDownList(object selectedGroup = null)
+        // {
+        //     var roleActionsQuery = _context.Roles;
+        //
+        //     ViewBag.ActionsNames = new SelectList(roleActionsQuery.ToList(), "Id", "Action", selectedGroup);
+        // }
+        
+        // private void PopulateRolesDropDownList(object selectedGroup = null)
+        // {
+        //     var rolesQuery = _context.UserRoles;
+        //
+        //     ViewBag.RoleNames = new SelectList(rolesQuery.ToList(), "Id", "UserName", selectedGroup);
+        // }
+        
+        private void PopulateUserDropDownList(object selectedGroup = null)
+        {
+            var usersQuery = _context.Users;
+        
+            ViewBag.UserNames = new SelectList(usersQuery.ToList(), "Id", "UserName", selectedGroup);
         }
 
         // POST: UserRoles/Create

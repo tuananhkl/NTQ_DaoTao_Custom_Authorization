@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CustomAuthorization.Common.Constants;
+using CustomAuthorization.CustomAuthorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using CustomAuthorization.Interfaces;
 
 namespace CustomAuthorization.Controllers
 {
+    //[CustomAuthorize(CustomAuthorizationConfig.USER_ALL)]
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
